@@ -72,6 +72,17 @@ public class WelcomeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(),getString(R.string.wifi_warning),Toast.LENGTH_LONG).show();
         }
+        scanBtn =  findViewById(R.id.scan_btn);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (wifiOn) {
+
+                } else {
+                    Toast.makeText(getApplicationContext(),getString(R.string.wifi_warning),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
     /*
         When activity was pushed to background
