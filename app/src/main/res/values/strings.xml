@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Network Scanner</string>
+    <string name="full_app_name">Android Network Scanner</string>
+    <string name="scan_btn__name">Scan Network</string>
+    <string name="saved_scan_btn__name">Show Scans</string>
+    <string name="manual_cmd__btn__name">Manual Command</string>
+    <string name="wlan_name">Wlan</string>
+    <string name="ipv4_addr">IPv4</string>
+    <string name="mac_addr">MAC</string>
+    <string name="wifi_warning">Please enable your Wifi before proceeding!</string>
+</resources>
