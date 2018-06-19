@@ -1,6 +1,7 @@
 package com.example.elliotalderson.networkscanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -92,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity {
         showBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                changeToShowScans();
             }
         });
     }
@@ -125,6 +126,10 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-    
 
+    public void changeToShowScans() {
+        Intent intent = new Intent(this, ShowScansActivity.class);
+        intent.putExtra("ip",ipv4);
+        startActivity(intent);
+    }
 }

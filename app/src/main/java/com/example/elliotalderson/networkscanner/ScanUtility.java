@@ -1,4 +1,6 @@
 package com.example.elliotalderson.networkscanner;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 public class ScanUtility {
@@ -7,7 +9,11 @@ public class ScanUtility {
         List<String> reachableIPs = new ArrayList<>();
 
         if (validIP(ip)) {
-            reachableIPs.add(ip);
+            String netIp = cutIP(ip);
+            for (int i = 0; i <= 255; i++) {
+                String tmpIP = netIp + i;
+                doPing(tmpIP);
+            }
         } else {
             reachableIPs.add("127.0.0.1");
         }
@@ -38,6 +44,23 @@ public class ScanUtility {
             return true;
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    public String cutIP(String ip) {
+        String IpWithNoFinalPart  = ip.replaceAll("(.*\\.)\\d+$", "$1");
+        return IpWithNoFinalPart;
+    }
+
+    public static void doPing(String host) {
+        try {
+            //String s = Runtime.getRuntime().exec(String.format("/system/bin/ping -q -n -w 1 -c 1 %s", host));
+            ProcessBuilder processBuilder = new ProcessBuilder(String.format("/system/bin/ping -q -n -w 1 -c 1 %s", host));
+            Process process = processBuilder.start();
+            String ret = process.getOutputStream().toString();
+            System.out.println(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
