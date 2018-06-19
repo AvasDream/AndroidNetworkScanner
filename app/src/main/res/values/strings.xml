@@ -8,4 +8,5 @@
     <string name="ipv4_addr">IPv4</string>
     <string name="mac_addr">MAC</string>
     <string name="wifi_warning">Please enable your Wifi before proceeding!</string>
+    <string name="started_scan">Scan started!</string>
 </resources>
