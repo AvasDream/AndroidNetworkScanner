@@ -5,4 +5,5 @@
     <color name="colorAccent">#2c289c</color>
     <color name="textWhite">#ffffff</color>
     <color name="viewBg">#ffffff</color>
+    <color name="textViewBg">#969696</color>
 </resources>

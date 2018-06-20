@@ -96,7 +96,32 @@ public class WelcomeActivity extends AppCompatActivity {
                 changeToShowScans();
             }
         });
+        cmdBtn = findViewById(R.id.cmd_btn);
+        cmdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeToManualCMD();
+            }
+        });
     }
+
+    public void changeToShowScans() {
+        Intent intent = new Intent(this, ShowScansActivity.class);
+        intent.putExtra("ip",ipv4);
+        startActivity(intent);
+    }
+
+    public void changeToManualCMD() {
+        Intent intent = new Intent(this, ManualCommandActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
+
+
+
     /*
         When activity was pushed to background
         and returns to foregrpund onResume is called
@@ -125,11 +150,5 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    public void changeToShowScans() {
-        Intent intent = new Intent(this, ShowScansActivity.class);
-        intent.putExtra("ip",ipv4);
-        startActivity(intent);
     }
 }

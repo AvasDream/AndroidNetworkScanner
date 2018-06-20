@@ -55,7 +55,7 @@ public class ScanUtility {
     public static void doPing(String host) {
         try {
             //String s = Runtime.getRuntime().exec(String.format("/system/bin/ping -q -n -w 1 -c 1 %s", host));
-            ProcessBuilder processBuilder = new ProcessBuilder(String.format("/system/bin/ping -q -n -w 1 -c 1 %s", host));
+            ProcessBuilder processBuilder = new ProcessBuilder(String.format("/system/bin/ping -c 1 %s", host));
             Process process = processBuilder.start();
             String ret = process.getOutputStream().toString();
             System.out.println(ret);

@@ -10,4 +10,10 @@ public class ShowScansActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_scans);
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }
