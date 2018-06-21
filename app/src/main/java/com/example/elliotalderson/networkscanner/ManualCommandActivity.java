@@ -1,15 +1,19 @@
 package com.example.elliotalderson.networkscanner;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +25,7 @@ public class ManualCommandActivity extends AppCompatActivity {
     private Button executeBtn = null;
     private Spinner cmdSpinner = null;
     private EditText argsInput = null;
+    private String[] command = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,7 @@ public class ManualCommandActivity extends AppCompatActivity {
         executeBtn = findViewById(R.id.executeBtn);
         argsInput = findViewById(R.id.cmdArgsInput);
         cmdSpinner = findViewById(R.id.cmdSpinner);
+
 
     }
 
@@ -42,38 +48,67 @@ public class ManualCommandActivity extends AppCompatActivity {
         cmdSpinner = findViewById(R.id.cmdSpinner);
         cmdOutputView.setMovementMethod(new ScrollingMovementMethod());
         argsInput.clearFocus();
+        cmdSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (cmdSpinner.getSelectedItem().toString()) {
+                    case "ifconfig": command = new String[]{"ifconfig"};
+                        break;
+                    case "ping": Toast.makeText(getApplicationContext(),"ping",Toast.LENGTH_LONG).show();
+                        break;
+                    case "route": command = new String[]{"route"};
+                        break;
+                    case "netstat": command = new String[]{"netstat"};
+                        break;
+                    case "ps": command = new String[]{"ps"};
+                        break;
+                    case "top": command = new String[]{"top","-n","1"};
+                        break;
+                    default: Toast.makeText(getApplicationContext(),getString(R.string.no_cmd_warning),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         executeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stdout = execute("/system/bin/netstat -löd");
+                String stdout = execute(command);
+                Log.i("execute output", stdout);
                 cmdOutputView.setText(stdout);
             }
         });
-    }
 
-    private String execute(String command) {
+
+
+    }
+    private String[] prepareCommands(String Argument) {
+        argsInput = findViewById(R.id.cmdArgsInput);
+        cmdSpinner = findViewById(R.id.cmdSpinner);
+        String[] top = new String[]{"top","-n","1"};
+        String[] ifconfig = new String[]{"ifconfig"};
+        String[] netstat = new String[]{"netstat"};
+        String[] route = new String[]{"route"};
+        String[] ps = new String[]{"ps"};
+        String[] ret = new String[]{"/system/bin/ping","-c","3","192.168.0.1"};
+        return ret;
+    }
+    private String execute(String[] command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
-
             InputStreamReader reader = new InputStreamReader(process.getInputStream());
-            InputStreamReader errReader = new InputStreamReader(process.getErrorStream());
-
             BufferedReader stdoutReader = new BufferedReader(reader);
-            BufferedReader stderrReader = new BufferedReader(errReader);
-
             int numRead;
             char[] buffer = new char[5000];
-            char[] buffer2 = new char[5000];
             StringBuffer commandOutput = new StringBuffer();
             while ((numRead = stdoutReader.read(buffer)) > 0) {
                 commandOutput.append(buffer, 0, numRead);
             }
-            while ((numRead = stderrReader.read(buffer2)) > 0) {
-                commandOutput.append(buffer, 0, numRead);
-            }
             stdoutReader.close();
             process.waitFor();
-            Log.i("execute output", commandOutput.toString());
             return commandOutput.toString();
         } catch (IOException e) {
             Log.e("execute IOException", e.toString());

@@ -10,11 +10,13 @@
     <string name="wifi_warning">Please enable your Wifi before proceeding!</string>
     <string name="started_scan">Scan started!</string>
     <string name="execute_btn">Execute</string>
-
+    <string name="no_cmd_warning">No Command selected</string>
     <string-array name="commands_array">
         <item>ifconfig</item>
         <item>ping</item>
         <item>netstat</item>
-        <item>netcfg</item>
+        <item>ps</item>
+        <item>route</item>
+        <item>top</item>
     </string-array>
 </resources>
