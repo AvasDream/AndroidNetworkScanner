@@ -1,13 +1,11 @@
 package com.example.elliotalderson.networkscanner;
 
-import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +16,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
+import java.util.concurrent.ExecutionException;
 
 public class ManualCommandActivity extends AppCompatActivity {
     private TextView cmdOutputView = null;
@@ -76,7 +74,14 @@ public class ManualCommandActivity extends AppCompatActivity {
         executeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stdout = execute(command);
+                String stdout = null;
+                try {
+                    stdout = new ExecuteAsync().execute(command).get();
+                } catch (InterruptedException e) {
+                    Log.e("Error  AsyncExec",e.toString());
+                } catch (ExecutionException e) {
+                    Log.e("Error  AsyncExec",e.toString());
+                }
                 Log.i("execute output", stdout);
                 cmdOutputView.setText(stdout);
             }
@@ -109,7 +114,35 @@ public class ManualCommandActivity extends AppCompatActivity {
         }
 
     }
+    private class ExecuteAsync extends AsyncTask<String, Integer, String> {
 
+        @Override
+        protected String doInBackground(String... params) {
+            String ret;
+            ManualCommandActivity cA = new ManualCommandActivity();
+            ret = cA.execute(params);
+            return ret;
+        }
+
+        // Runs in UI before background thread is called
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Do something like display a progress bar
+        }
+        // This is called from background thread but runs in UI
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            // Do things like update the progress bar
+        }
+        // This runs in UI when background thread finishes
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            // Do things like hide the progress bar or change a TextView
+        }
+    }
 
 
 }
