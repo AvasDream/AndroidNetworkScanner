@@ -78,9 +78,9 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (wifiOn) {
-                    Toast.makeText(getApplicationContext(),getString(R.string.started_scan),Toast.LENGTH_LONG).show();
                     pgsBar = (ProgressBar)findViewById(R.id.scanProgressBar);
                     pgsBar.setVisibility(v.VISIBLE);
+                    Toast.makeText(getApplicationContext(),getString(R.string.started_scan),Toast.LENGTH_LONG).show();
                     ScanUtility scanUtility = new ScanUtility();
                     List<String> reachableHosts= scanUtility.scanNetwork(ipv4);
                     Toast.makeText(getApplicationContext(),reachableHosts.toString(),Toast.LENGTH_LONG).show();

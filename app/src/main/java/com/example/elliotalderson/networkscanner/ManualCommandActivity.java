@@ -22,7 +22,6 @@ public class ManualCommandActivity extends AppCompatActivity  {
     public TextView cmdOutputView = null;
     private Button executeBtn = null;
     private Spinner cmdSpinner = null;
-    private EditText argsInput = null;
     private String[] command = null;
     public String cmdOutput = null;
     @Override
@@ -32,7 +31,6 @@ public class ManualCommandActivity extends AppCompatActivity  {
         cmdOutputView = findViewById(R.id.cmdOutputView);
         cmdOutputView.setBackgroundColor(getResources().getColor(R.color.textViewBg));
         executeBtn = findViewById(R.id.executeBtn);
-        argsInput = findViewById(R.id.cmdArgsInput);
         cmdSpinner = findViewById(R.id.cmdSpinner);
     }
 
@@ -41,17 +39,13 @@ public class ManualCommandActivity extends AppCompatActivity  {
         super.onStart();
         cmdOutputView = findViewById(R.id.cmdOutputView);
         executeBtn = findViewById(R.id.executeBtn);
-        argsInput = findViewById(R.id.cmdArgsInput);
         cmdSpinner = findViewById(R.id.cmdSpinner);
         cmdOutputView.setMovementMethod(new ScrollingMovementMethod());
-        argsInput.clearFocus();
         cmdSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (cmdSpinner.getSelectedItem().toString()) {
                     case "ifconfig": command = new String[]{"ifconfig"};
-                        break;
-                    case "ping": Toast.makeText(getApplicationContext(),"ping",Toast.LENGTH_LONG).show();
                         break;
                     case "route": command = new String[]{"route"};
                         break;

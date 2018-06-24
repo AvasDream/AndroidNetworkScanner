@@ -1,5 +1,9 @@
 package com.example.elliotalderson.networkscanner;
+import android.util.Log;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +56,11 @@ public class ScanUtility {
         return IpWithNoFinalPart;
     }
 
-    public static void doPing(String host) {
+    public static boolean doPing(String host) {
+
         try {
-            //String s = Runtime.getRuntime().exec(String.format("/system/bin/ping -q -n -w 1 -c 1 %s", host));
-            ProcessBuilder processBuilder = new ProcessBuilder(String.format("/system/bin/ping -c 1 %s", host));
+            ProcessBuilder processBuilder;
+            processBuilder = new ProcessBuilder("ping","-c","3", host);
             Process process = processBuilder.start();
             String ret = process.getOutputStream().toString();
             System.out.println(ret);
