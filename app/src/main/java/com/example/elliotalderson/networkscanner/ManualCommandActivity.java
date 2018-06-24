@@ -18,12 +18,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.ExecutionException;
 
-public class ManualCommandActivity extends AppCompatActivity {
-    private TextView cmdOutputView = null;
+public class ManualCommandActivity extends AppCompatActivity  {
+    public TextView cmdOutputView = null;
     private Button executeBtn = null;
     private Spinner cmdSpinner = null;
     private EditText argsInput = null;
     private String[] command = null;
+    AsyncTaskCmd asyncCmd = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +34,6 @@ public class ManualCommandActivity extends AppCompatActivity {
         executeBtn = findViewById(R.id.executeBtn);
         argsInput = findViewById(R.id.cmdArgsInput);
         cmdSpinner = findViewById(R.id.cmdSpinner);
-
-
     }
 
     @Override
@@ -74,16 +73,15 @@ public class ManualCommandActivity extends AppCompatActivity {
         executeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stdout = null;
-                try {
-                    stdout = new ExecuteAsync().execute(command).get();
-                } catch (InterruptedException e) {
-                    Log.e("Error  AsyncExec",e.toString());
-                } catch (ExecutionException e) {
-                    Log.e("Error  AsyncExec",e.toString());
+                //String stdout = null;
+                asyncCmd = new AsyncTaskCmd();
+                asyncCmd.execute(command);
+                /*
+                stdout = cmdOutput;
+                if (asyncCmd.getStatus() == AsyncTask.Status.FINISHED) {
+
                 }
-                Log.i("execute output", stdout);
-                cmdOutputView.setText(stdout);
+                */
             }
         });
 
@@ -91,7 +89,7 @@ public class ManualCommandActivity extends AppCompatActivity {
 
     }
 
-    private String execute(String[] command) {
+    public String execute(String[] command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
             InputStreamReader reader = new InputStreamReader(process.getInputStream());
@@ -114,35 +112,9 @@ public class ManualCommandActivity extends AppCompatActivity {
         }
 
     }
-    private class ExecuteAsync extends AsyncTask<String, Integer, String> {
 
-        @Override
-        protected String doInBackground(String... params) {
-            String ret;
-            ManualCommandActivity cA = new ManualCommandActivity();
-            ret = cA.execute(params);
-            return ret;
-        }
 
-        // Runs in UI before background thread is called
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Do something like display a progress bar
-        }
-        // This is called from background thread but runs in UI
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            // Do things like update the progress bar
-        }
-        // This runs in UI when background thread finishes
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            // Do things like hide the progress bar or change a TextView
-        }
-    }
+
 
 
 }
