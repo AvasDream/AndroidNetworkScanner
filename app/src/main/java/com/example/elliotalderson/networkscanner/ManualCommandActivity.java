@@ -24,7 +24,7 @@ public class ManualCommandActivity extends AppCompatActivity  {
     private Spinner cmdSpinner = null;
     private EditText argsInput = null;
     private String[] command = null;
-    AsyncTaskCmd asyncCmd = null;
+    public String cmdOutput = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,22 +73,40 @@ public class ManualCommandActivity extends AppCompatActivity  {
         executeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String stdout = null;
-                asyncCmd = new AsyncTaskCmd();
-                asyncCmd.execute(command);
-                /*
-                stdout = cmdOutput;
-                if (asyncCmd.getStatus() == AsyncTask.Status.FINISHED) {
-
-                }
-                */
+                cmdOutputView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnPressed();
+                    }
+                }, 2000);
             }
         });
 
 
 
     }
-
+    /*
+    Capsulation for Networking Thread an UI
+     */
+    private void btnPressed() {
+        try {
+            setView(command);
+        } catch (InterruptedException e) {
+            Log.e("Thread Exception",e.toString());
+        }
+        cmdOutputView.setText(cmdOutput);
+        cmdOutput ="";
+    }
+    private void setView(final String[] cmd) throws InterruptedException {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cmdOutput = execute(cmd);
+            }
+        });
+        t.start();
+        t.join();
+    }
     public String execute(String[] command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
