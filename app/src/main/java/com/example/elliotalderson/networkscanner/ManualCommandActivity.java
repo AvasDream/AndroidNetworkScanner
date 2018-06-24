@@ -52,7 +52,7 @@ public class ManualCommandActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (cmdSpinner.getSelectedItem().toString()) {
-                    case "ifconfig": command = new String[]{"ifconfig -h"};
+                    case "ifconfig": command = new String[]{"ifconfig"};
                         break;
                     case "ping": Toast.makeText(getApplicationContext(),"ping",Toast.LENGTH_LONG).show();
                         break;
