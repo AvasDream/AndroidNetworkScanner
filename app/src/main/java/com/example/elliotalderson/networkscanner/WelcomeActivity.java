@@ -70,8 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (wifiOn) {
-
-                    Toast.makeText(getApplicationContext(),"Wifi is on",Toast.LENGTH_LONG).show();
+                    changeToPingActivity();
                 } else {
                     Toast.makeText(getApplicationContext(),getString(R.string.wifi_warning),Toast.LENGTH_LONG).show();
                 }
@@ -101,6 +100,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void changeToManualCMD() {
         Intent intent = new Intent(this, ManualCommandActivity.class);
+        startActivity(intent);
+    }
+    public void changeToPingActivity() {
+        Intent intent = new Intent(this, PingActivity.class);
         startActivity(intent);
     }
 

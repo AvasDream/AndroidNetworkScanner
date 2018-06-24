@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShowShodanActivity" />
-        <activity android:name=".ManualCommandActivity"></activity>
+        <activity android:name=".ManualCommandActivity" />
+        <activity android:name=".PingActivity"></activity>
     </application>
 
 </manifest>
