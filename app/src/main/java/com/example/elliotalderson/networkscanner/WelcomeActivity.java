@@ -2,6 +2,7 @@ package com.example.elliotalderson.networkscanner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -12,12 +13,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
     private View welcomeView;
@@ -44,10 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // Set Backgroundcolor
         welcomeView = findViewById(android.R.id.content);
         welcomeView.setBackgroundResource(R.color.viewBg);
-
-
-
-
+        this.setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
     /*
         onStart makes activity visible for user
@@ -102,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void changeToShowScans() {
-        Intent intent = new Intent(this, ShowScansActivity.class);
+        Intent intent = new Intent(this, ShowShodanActivity.class);
         intent.putExtra("ip",ipv4);
         startActivity(intent);
     }

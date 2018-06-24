@@ -1,5 +1,6 @@
 package com.example.elliotalderson.networkscanner;
 
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class ManualCommandActivity extends AppCompatActivity  {
         cmdOutputView.setBackgroundColor(getResources().getColor(R.color.textViewBg));
         executeBtn = findViewById(R.id.executeBtn);
         cmdSpinner = findViewById(R.id.cmdSpinner);
+        this.setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override

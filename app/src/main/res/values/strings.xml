@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Network Scanner</string>
+    <string name="app_name">Android Network Utility</string>
     <string name="full_app_name">Android Network Utility</string>
     <string name="scan_btn__name">Ping Host</string>
-    <string name="saved_scan_btn__name">Show Scans</string>
+    <string name="saved_scan_btn__name">Shodan Search</string>
     <string name="manual_cmd__btn__name">Manual Command</string>
     <string name="wlan_name">Wlan</string>
     <string name="ipv4_addr">IPv4</string>
