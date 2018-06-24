@@ -52,7 +52,7 @@ public class ManualCommandActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (cmdSpinner.getSelectedItem().toString()) {
-                    case "ifconfig": command = new String[]{"ifconfig"};
+                    case "ifconfig": command = new String[]{"ifconfig -h"};
                         break;
                     case "ping": Toast.makeText(getApplicationContext(),"ping",Toast.LENGTH_LONG).show();
                         break;
@@ -85,17 +85,7 @@ public class ManualCommandActivity extends AppCompatActivity {
 
 
     }
-    private String[] prepareCommands(String Argument) {
-        argsInput = findViewById(R.id.cmdArgsInput);
-        cmdSpinner = findViewById(R.id.cmdSpinner);
-        String[] top = new String[]{"top","-n","1"};
-        String[] ifconfig = new String[]{"ifconfig"};
-        String[] netstat = new String[]{"netstat"};
-        String[] route = new String[]{"route"};
-        String[] ps = new String[]{"ps"};
-        String[] ret = new String[]{"/system/bin/ping","-c","3","192.168.0.1"};
-        return ret;
-    }
+
     private String execute(String[] command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
