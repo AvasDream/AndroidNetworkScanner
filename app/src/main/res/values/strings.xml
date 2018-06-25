@@ -10,6 +10,8 @@
     <string name="wifi_warning">Please enable your Wifi before proceeding!</string>
     <string name="started_scan">Scan started!</string>
     <string name="execute_btn">Execute</string>
+    <string name="ping_btn">Ping</string>
+    <string name="sample_ip">127.0.0.1</string>
     <string name="no_cmd_warning">No Command selected</string>
     <string-array name="commands_array">
         <item>ifconfig</item>

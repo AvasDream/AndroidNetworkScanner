@@ -63,8 +63,12 @@ public class ManualCommandActivity extends AppCompatActivity  {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                /*
+                Nothing to do on nothing selected!
+                 */
             }
+
+
         });
         executeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

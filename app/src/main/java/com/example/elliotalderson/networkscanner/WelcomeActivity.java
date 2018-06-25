@@ -20,7 +20,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final String fileAddressMac = "/sys/class/net/wlan0/address";
     private TextView wlanView = null;// = findViewById(R.id.view_wlan);
     private TextView ipv4View = null;// = findViewById(R.id.view_ipv4);
-    private TextView macvView = null;// = findViewById(R.id.view_ipv6);
     private Button scanBtn = null;// = findViewById(R.id.scan_btn);
     private Button showBtn = null;// = findViewById(R.id.show_scans_btn);
     private Button cmdBtn = null;// = findViewById(R.id.cmd_btn);
@@ -50,6 +49,9 @@ public class WelcomeActivity extends AppCompatActivity {
         // Wifi connected?
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiInfo = wifiManager.getConnectionInfo();
+        scanBtn =  findViewById(R.id.scan_btn);
+        showBtn = findViewById(R.id.show_scans_btn);
+        cmdBtn = findViewById(R.id.cmd_btn);
 
         if (wifiInfo.getSupplicantState() == SupplicantState.COMPLETED) {
             wifiOn = true;
@@ -65,7 +67,6 @@ public class WelcomeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(),getString(R.string.wifi_warning),Toast.LENGTH_LONG).show();
         }
-        scanBtn =  findViewById(R.id.scan_btn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,14 +77,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             }
         });
-        showBtn = findViewById(R.id.show_scans_btn);
         showBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeToShowScans();
             }
         });
-        cmdBtn = findViewById(R.id.cmd_btn);
         cmdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
